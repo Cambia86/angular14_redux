@@ -1,1 +1,66 @@
 <p>economics-list works!</p>
+
+<div *ngFor="let tran of transaction; let i = index">
+  <div>{{tran.name}}</div>
+  <div>{{tran.value}}</div>
+  <div>{{tran.category}}</div>
+  <div>{{tran.type}}</div>
+
+  <div class="col-md-3">
+    <button type="button" (click)="openModal(template, tran)" class="btn btn-warning right">Edit</button>
+  </div>
+</div>
+
+
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Task Edit</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="exampleInputEmail1">Id</label>
+          <!-- {{editingId}} -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="exampleInputEmail1">Task</label>
+          <input type="text" class="form-control" formControlName="name" id="exampleInputEmail1"
+            placeholder="Create a Task">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="exampleInputPassword1">Assignee</label>
+          <input type="text" class="form-control" formControlName="description" id="exampleInputPassword1"
+            placeholder="Assignee">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="exampleInputPassword1">value</label>
+          <input type="text" class="form-control" formControlName="value" id="exampleInputvalue" placeholder="Assignee">
+        </div>
+      </div>
+      <!-- <div class="row">
+        <div class="form-group col-md-6">
+          <label for="sel1">Status:</label>
+          <select formControlName="status" class="form-control" id="sel1">
+            <option>To Be Done</option>
+            <option>In Progress</option>
+            <option>Completed</option>
+          </select>
+        </div>
+      </div> -->
+      <div class="btncenter">
+        <button type="submit" [disabled]="!editForm.valid" class="btn btn-danger">Confirm</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
