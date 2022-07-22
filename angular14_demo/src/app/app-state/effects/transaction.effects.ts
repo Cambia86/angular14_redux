@@ -35,7 +35,7 @@ export class TransactionEffects {
     this.actions$.pipe(
       ofType(transactionAction.createTransaction),
       exhaustMap(tran =>
-        this.transactionService.addtransaction(tran).pipe(
+        this.transactionService.addtransaction(tran.transaction).pipe(
           map(response => transactionAction.createTransactionSuccess(response)),
           catchError((error: any) => of(transactionAction.createTransactionFailure(error))))
       )
@@ -56,9 +56,12 @@ export class TransactionEffects {
   editTransaction$ = createEffect(() =>
     this.actions$.pipe(
       ofType(transactionAction.editTransaction),
-      exhaustMap((tran: Transaction) =>
-        this.transactionService.edittransaction(tran).pipe(
-          map(response => transactionAction.editTransactionSuccess(response)),
+      exhaustMap((tran: any) =>
+        this.transactionService.edittransaction(tran.transaction).pipe(
+          map(response => {
+            console.log("edittransaction response:::", response)
+            return transactionAction.editTransactionSuccess(response)
+          }),
           catchError((error: any) => of(transactionAction.editTransactionFailure(error))))
       )
     )

@@ -45,6 +45,16 @@ var updateTransactionById = function (transactionId, transaction, cb) {
   });
 }
 
+var createTransaction = function (transaction, cb) {
+  mongo_client.getMongoClientConnection(function (client) {
+    client.db().collection("Transactions").insert(transaction, function (err, res) {
+      if (err) throw err;
+      client.close()
+      return cb(res)
+    });
+  });
+}
+
 var deleteTransactionById = function (transactionId, cb) {
   const myquery = { _id: ObjectId(transactionId) };
   mongo_client.getMongoClientConnection(function (client) {
@@ -65,6 +75,7 @@ function getDifferenceInDays(date1, date2) {
 module.exports = {
   getTransaction: getTransaction,
   getTransactionById: getTransactionById,
+  createTransaction: createTransaction,
   updateTransactionById: updateTransactionById,
   deleteTransactionById: deleteTransactionById
 }

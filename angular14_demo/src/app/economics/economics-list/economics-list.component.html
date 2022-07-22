@@ -1,5 +1,9 @@
 <p>economics-list works!</p>
 
+<div class="col-md-3">
+  <button type="button" (click)="openModal(template, null)" class="btn btn-warning right">Add</button>
+</div>
+
 <div *ngFor="let tran of transaction; let i = index">
   <div>{{tran.name}}</div>
   <div>{{tran.value}}</div>
@@ -46,6 +50,18 @@
         <div class="form-group col-md-6">
           <label for="exampleInputPassword1">value</label>
           <input type="text" class="form-control" formControlName="value" id="exampleInputvalue" placeholder="Assignee">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="exampleInputPassword1">category</label>
+          <input type="text" class="form-control" formControlName="category" id="exampleInputvalue" placeholder="category">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="exampleInputtype">type</label>
+          <input type="text" class="form-control" formControlName="type" id="exampleInputvalue" placeholder="type">
         </div>
       </div>
       <!-- <div class="row">

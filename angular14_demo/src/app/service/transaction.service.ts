@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Transaction } from '../app-state/entity/transaction.entity';
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +17,11 @@ export class TransactionService {
   }
 
   addtransaction(transaction: any) {
-    return this.http.post(this.rootURL + '/transaction', { transaction });
+    return this.http.post(this.rootURL + '/transaction/createTransaction', { transaction });
   }
 
   edittransaction(transaction: any) {
-    return this.http.put(this.rootURL + '/transaction', { transaction });
+    return this.http.post(this.rootURL + '/transaction/updateTransactionById/' + transaction.id, { transaction });
   }
 
   deletetransaction(transactionId: any) {

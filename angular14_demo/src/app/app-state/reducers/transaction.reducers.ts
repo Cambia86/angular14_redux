@@ -34,14 +34,16 @@ const transactionReducer = createReducer(
   on(transactionAction.getTransactionsSuccess, (state, result) => ({ transactions: result.response, isLoading: false, isLoadingSuccess: true })),
 
   // Create Task Reducers
-  // on(transactionAction.createTransaction, (state, { transaction }) => ({ ...state, isLoading: true, currentTransaction: transaction })),
+  on(transactionAction.createTransaction, (state, { transaction }) => (
+    { ...state, isLoading: true, currentTransaction: transaction }
+  )),
   on(transactionAction.createTransactionSuccess, (state, result) => {
     const transaction = undefined !== state.transactions ? _.cloneDeep(state.transactions) : [];
     const currentTransaction = undefined !== state.currentTransaction ? _.cloneDeep(state.currentTransaction) : new Transaction("", "", 0, "", "", "");
-    currentTransaction.id = result.taskId;
+    currentTransaction.id = result.transactionId;
     transaction.push(currentTransaction);
     return {
-      transaction,
+      transactions: transaction,
       isLoading: false,
       isLoadingSuccess: true
     };
@@ -62,18 +64,18 @@ const transactionReducer = createReducer(
   }),
 
   // Edit Task Reducers
-  on(transactionAction.editTransaction, (state, transaction) => ({ ...state, isLoading: true, currentTransaction: transaction })),
+  on(transactionAction.editTransaction, (state, transaction) => ({ ...state, isLoading: true, currentTransaction: transaction.transaction })),
   on(transactionAction.editTransactionSuccess, (state, result) => {
-    let tasks = undefined !== state.transactions ? _.cloneDeep(state.transactions) : [];
+    let transaction = undefined !== state.transactions ? _.cloneDeep(state.transactions) : [];
     const currentTransaction = undefined !== state.currentTransaction ? _.cloneDeep(state.currentTransaction) : new Transaction("", "", 0, "", "", "");
-    tasks = tasks.map(tsk => {
+    transaction = transaction.map(tsk => {
       if (tsk.id === currentTransaction!.id) {
         tsk = currentTransaction;
       }
       return tsk;
     });
     return {
-      tasks,
+      transactions: transaction,
       isLoading: false,
       isLoadingSuccess: true
     };

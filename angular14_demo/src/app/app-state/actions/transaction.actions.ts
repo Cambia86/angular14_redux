@@ -35,7 +35,7 @@ export const getTransactionsFailure = createAction(
 
 export const createTransaction = createAction(
   CREATE_TRANSACTION,
-  props<{ TRANSACTION: any }>()
+  props<{ transaction: any }>()
 );
 
 export const createTransactionSuccess = createAction(
