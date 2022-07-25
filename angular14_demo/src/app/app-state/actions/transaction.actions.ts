@@ -50,7 +50,7 @@ export const createTransactionFailure = createAction(
 
 export const deleteTransaction = createAction(
   DELETE_TRANSACTION,
-  props<{ transactionId: number }>()
+  props<{ transactionid: any }>()
 );
 
 export const deleteTransactionSuccess = createAction(

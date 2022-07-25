@@ -32,7 +32,7 @@ var getTransactionById = function (transactionId, cb) {
 }
 
 var updateTransactionById = function (transactionId, transaction, cb) {
-  const myquery = { _id: ObjectId(transactionId) };
+  const myquery = { id: transactionId }// { _id: ObjectId(transactionId) };
   const newvalues = {
     "$set": { "name": transaction.name, "value": transaction.value, "category": transaction.category, "type": transaction.type, "description": transaction.description }
   };
@@ -56,12 +56,12 @@ var createTransaction = function (transaction, cb) {
 }
 
 var deleteTransactionById = function (transactionId, cb) {
-  const myquery = { _id: ObjectId(transactionId) };
+  // const myquery = { _id: ObjectId(transactionId) };
   mongo_client.getMongoClientConnection(function (client) {
-    client.db().collection("Transactions").deleteOne(myquery, function (err, res) {
+    client.db().collection("Transactions").deleteOne({ id: transactionId }, function (err, res) {
       if (err) throw err;
       client.close()
-      return cb("OK")
+      return cb(res)
     });
   });
 }

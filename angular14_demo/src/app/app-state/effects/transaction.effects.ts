@@ -46,7 +46,7 @@ export class TransactionEffects {
   deleteTransaction$ = createEffect(() =>
     this.actions$.pipe(
       ofType(transactionAction.deleteTransaction),
-      exhaustMap((tran: Transaction) => this.transactionService.deletetransaction(tran.id).pipe(
+      exhaustMap((tran: any) => this.transactionService.deletetransaction(tran.transactionid).pipe(
         map(response => transactionAction.deleteTransactionSuccess(response)),
         catchError((error: any) => of(transactionAction.deleteTransactionFailure(error))))
       )

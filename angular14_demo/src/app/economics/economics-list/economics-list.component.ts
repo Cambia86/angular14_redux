@@ -9,6 +9,7 @@ import { Subject } from 'rxjs';
 import { Transaction } from '../../app-state/entity/transaction.entity';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import * as transactionActions from '../../app-state/actions';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-economics-list',
@@ -18,13 +19,15 @@ import * as transactionActions from '../../app-state/actions';
 export class EconomicsListComponent implements OnInit {
 
   modalRef!: BsModalRef;
+  modalRefdel!: BsModalRef;
   transaction: Transaction[] = [];
 
-
+  currentTransactionId: string | undefined;
 
   constructor(private router: Router,
     private readonly store: Store,
-    private modalService: BsModalService) {
+    private modalService: BsModalService,
+    private spinner: NgxSpinnerService) {
 
     this.getTransaction();
 
@@ -32,6 +35,11 @@ export class EconomicsListComponent implements OnInit {
       takeUntil(this.destroy$)
     ).subscribe(data => {
       this.transaction = data.transaction!
+
+      if (data.isLoading)
+        this.spinner.show();
+      else
+        this.spinner.hide();
     });
   }
 
@@ -64,9 +72,16 @@ export class EconomicsListComponent implements OnInit {
     this.store.dispatch(transactionActions.createTransaction({ transaction }));
   }
 
+  deleteTransaction() {
+    let transactionid = this.currentTransactionId;
+    console.log('cancel this transaction:::', this.currentTransactionId);
+    this.store.dispatch(transactionActions.deleteTransaction({ transactionid }));
+    this.modalRefdel.hide();
+  }
+
   onSubmit() {
     console.log(this.editForm.value);
-    this.modalService.hide(1);
+    this.modalRef.hide();
     if (this.editForm.value.id == "")
       this.addTran(this.editForm.value);
     else
@@ -78,6 +93,12 @@ export class EconomicsListComponent implements OnInit {
     if (task != null)
       this.editForm.setValue({ id: task.id!, name: task.name!, description: task.description!, value: task.value!.toString(), category: task.category!, type: task.type! });
     this.modalRef = this.modalService.show(template);
+  }
+
+  openModalDelete(templatedel: TemplateRef<any>, transaction: any) {
+
+    this.currentTransactionId = transaction.id!;
+    this.modalRefdel = this.modalService.show(templatedel);
   }
 
   ngOnInit(): void {

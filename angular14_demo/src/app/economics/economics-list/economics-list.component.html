@@ -1,21 +1,37 @@
-<p>economics-list works!</p>
-
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
 <div class="col-md-3">
   <button type="button" (click)="openModal(template, null)" class="btn btn-warning right">Add</button>
 </div>
 
-<div *ngFor="let tran of transaction; let i = index">
-  <div>{{tran.name}}</div>
-  <div>{{tran.value}}</div>
-  <div>{{tran.category}}</div>
-  <div>{{tran.type}}</div>
+<div class="row" style="margin:5px" *ngFor="let tran of transaction; let i = index">
 
-  <div class="col-md-3">
+  <div class="col-2">{{tran.name}}</div>
+  <div class="col-2">{{tran.value}}</div>
+  <div class="col-2">{{tran.category}}</div>
+  <div class="col-2">{{tran.type}}
+  </div>
+
+  <div class="col-2">
     <button type="button" (click)="openModal(template, tran)" class="btn btn-warning right">Edit</button>
+  </div>
+  <div class="col-2">
+    <button type="button" (click)="openModalDelete(templatedel, tran)" class="btn btn-warning right">delete</button>
   </div>
 </div>
 
-
+<ng-template #templatedel>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Cancel Edit</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefdel.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="col-md-3">
+      <button type="button" (click)="deleteTransaction()" class="btn btn-warning right">delete</button>
+    </div>
+  </div>
+</ng-template>
 
 <ng-template #template>
   <div class="modal-header">

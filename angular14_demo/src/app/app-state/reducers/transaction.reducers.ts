@@ -50,14 +50,16 @@ const transactionReducer = createReducer(
   }),
 
   // Delete Task Reducers
-  on(transactionAction.deleteTransaction, (state, { transactionId }) => ({ ...state, isLoading: true, deleteTaskId: transactionId })),
+  on(transactionAction.deleteTransaction, (state, { transactionid }) => (
+    { ...state, isLoading: true, deleteTaskId: transactionid })
+  ),
   on(transactionAction.deleteTransactionSuccess, (state, result) => {
-    let tasks = undefined !== state.transactions ? _.cloneDeep(state.transactions) : [];
-    if (result.status) {
-      tasks = tasks.filter(task => task.id !== state.deleteTaskId);
+    let transaction = undefined !== state.transactions ? _.cloneDeep(state.transactions) : [];
+    if (result.deletedCount > 0) {
+      transaction = transaction.filter(tran => tran.id !== state.deleteTaskId);
     }
     return {
-      tasks,
+      transactions: transaction,
       isLoading: false,
       isLoadingSuccess: true
     };
