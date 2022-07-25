@@ -10,6 +10,7 @@ import { Transaction } from '../../app-state/entity/transaction.entity';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import * as transactionActions from '../../app-state/actions';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-economics-list',
@@ -27,7 +28,8 @@ export class EconomicsListComponent implements OnInit {
   constructor(private router: Router,
     private readonly store: Store,
     private modalService: BsModalService,
-    private spinner: NgxSpinnerService) {
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService) {
 
     this.getTransaction();
 
@@ -36,8 +38,13 @@ export class EconomicsListComponent implements OnInit {
     ).subscribe(data => {
       this.transaction = data.transaction!
 
-      if (data.isLoading)
+      if (data.isLoadingSuccess)
+        this.toastr.success('Hello world!', 'Toastr fun!');
+
+      if (data.isLoading) {
         this.spinner.show();
+
+      }
       else
         this.spinner.hide();
     });
