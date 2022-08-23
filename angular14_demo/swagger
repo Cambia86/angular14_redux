@@ -1,0 +1,46 @@
+swagger: '2.0'
+info:
+  description: |
+    This is a sample for oauth2 docebo
+  version: 1.0.0
+  title: Docebo.Api
+
+# host: docebo.swagger.io
+tags:
+- name: auth request
+  description: Auth token generation
+- name: auth request
+  # description: Auth token generation
+# schemes:
+# - http
+paths:
+  oauth2/token:
+    post:
+      tags:
+      - auth
+      summary: generate token for docebo
+      operationId: addPet
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: username password and domain
+        required: true
+        schema:
+          $ref: '#/Models/Credentials'
+      responses:
+        200:
+          description: ok
+        405:
+          description: Invalid input
+      security:
+      - none:
+
+
+basePath: https://mydocebo.docebosaas.com/
+schemes:
+ - https
+ - http

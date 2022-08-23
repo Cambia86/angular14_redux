@@ -13,7 +13,7 @@ var mongodb = require("mongodb");
 // const statisticroute = require('./routes/statistic.route');
 // const prevision = require('./routes/prevision.route')
 const transaction = require('./routes/transaction');
-
+const config = require('./config')
 // var ObjectID = mongodb.ObjectID;
 var cors = require('cors')
 // var CONTACTS_COLLECTION = "standings";

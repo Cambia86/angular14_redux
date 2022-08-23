@@ -38,8 +38,8 @@ export class EconomicsListComponent implements OnInit {
     ).subscribe(data => {
       this.transaction = data.transaction!
 
-      if (data.isLoadingSuccess)
-        this.toastr.success('Hello world!', 'Toastr fun!');
+      if (data.isLoadingSuccess) { }
+        // this.toastr.success('Hello world!', 'Toastr fun!');
 
       if (data.isLoading) {
         this.spinner.show();

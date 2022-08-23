@@ -15,9 +15,11 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { AccountEffects } from './app-state/effects/account.effects';
+import { InfowidgetComponent } from './login/infowidget/infowidget.component';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent, InfowidgetComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,7 @@ import { ToastrModule } from 'ngx-toastr';
     StoreModule.forRoot(reducers, {
       metaReducers
     }),
-    EffectsModule.forRoot([TransactionEffects])
+    EffectsModule.forRoot([TransactionEffects, AccountEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

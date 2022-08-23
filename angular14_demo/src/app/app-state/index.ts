@@ -9,13 +9,16 @@ import { localStorageSync } from 'ngrx-store-localstorage';
 import { environment } from '../../environments/environment';
 // import * as fromUser from './reducers/user.reducer';
 import * as fromTransaction from './reducers/transaction.reducers';
+import * as fromAccount from './reducers/account.reducers';
 
 export interface State {
   transaction: fromTransaction.State;
+  account: fromAccount.State
 }
 
 export const reducers: ActionReducerMap<State> = {
   transaction: fromTransaction.reducer,
+  account: fromAccount.reducer
 };
 
 const reducerKeys = ['transaction'];
@@ -36,6 +39,8 @@ export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
 
 export const metaReducers: MetaReducer<State>[] = !environment.production ? [debug, localStorageSyncReducer] : [localStorageSyncReducer];
 
+
+
 // export const getLoginState = createFeatureSelector<fromUser.State>('user');
 
 // export const getLoggedInUser = createSelector(
@@ -55,6 +60,13 @@ export const metaReducers: MetaReducer<State>[] = !environment.production ? [deb
 
 
 // Todo reducers Begin
+export const geAccountState = createFeatureSelector<fromAccount.State>('account');
+
+export const getAccount = createSelector(
+  geAccountState,
+  fromAccount.getAccountReducer
+);
+
 
 export const geTransactionState = createFeatureSelector<fromTransaction.State>('transaction');
 
