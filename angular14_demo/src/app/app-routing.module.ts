@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () => import('./economics/economics.module').then(m => m.EconomicsModule)
+  },
+  {
+    path: 'utility',
+    loadChildren: () => import('./utility/utility.module').then(m => m.UtilityModule)
   }
   // { path: 'dashboard', component: DashboardComponent }
 ];

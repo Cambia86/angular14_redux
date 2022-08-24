@@ -10,15 +10,18 @@ import { environment } from '../../environments/environment';
 // import * as fromUser from './reducers/user.reducer';
 import * as fromTransaction from './reducers/transaction.reducers';
 import * as fromAccount from './reducers/account.reducers';
+import * as fromCategory from './reducers/category.reducers';
 
 export interface State {
   transaction: fromTransaction.State;
-  account: fromAccount.State
+  account: fromAccount.State;
+  category: fromCategory.State
 }
 
 export const reducers: ActionReducerMap<State> = {
   transaction: fromTransaction.reducer,
-  account: fromAccount.reducer
+  account: fromAccount.reducer,
+  category: fromCategory.reducer
 };
 
 const reducerKeys = ['transaction'];
@@ -40,31 +43,20 @@ export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
 export const metaReducers: MetaReducer<State>[] = !environment.production ? [debug, localStorageSyncReducer] : [localStorageSyncReducer];
 
 
-
-// export const getLoginState = createFeatureSelector<fromUser.State>('user');
-
-// export const getLoggedInUser = createSelector(
-//   // getLoginState,
-//   fromUser.getLoggedInUser
-// );
-
-// export const userLogin = createSelector(
-//   getLoginState,
-//   fromUser.userLogin
-// );
-
-// export const userSignup = createSelector(
-//   getLoginState,
-//   fromUser.userSignup
-// );
-
-
 // Todo reducers Begin
 export const geAccountState = createFeatureSelector<fromAccount.State>('account');
 
 export const getAccount = createSelector(
   geAccountState,
   fromAccount.getAccountReducer
+);
+
+
+export const getCategoryState = createFeatureSelector<fromCategory.State>('category');
+
+export const getCategory = createSelector(
+  getCategoryState,
+  fromCategory.getcategoryReducer
 );
 
 

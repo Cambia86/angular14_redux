@@ -11,7 +11,7 @@ var mongodb = require("mongodb");
 // const standing = require('./routes/standing.route');
 // const adminroute = require('./routes/admin.route');
 // const statisticroute = require('./routes/statistic.route');
-// const prevision = require('./routes/prevision.route')
+const category = require('./routes/category')
 const transaction = require('./routes/transaction');
 const config = require('./config')
 // var ObjectID = mongodb.ObjectID;
@@ -112,6 +112,7 @@ function main() {
 
   // app.use('/api/transaction', middleware.checkToken, standing_v2)
   app.use('/api/transaction', transaction)
+  app.use('/api/category', category)
 
   // app.use('/api/match',middleware.checkToken, match);
   // app.use('/api/standing', standing);

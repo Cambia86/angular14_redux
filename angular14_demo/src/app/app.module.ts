@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './app-state';
-import { TransactionEffects } from './app-state/effects/transaction.effects';
+import { TransactionEffects, CategoryEffects, AccountEffects } from './app-state/effects';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -15,8 +15,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { AccountEffects } from './app-state/effects/account.effects';
+// import { AccountEffects } from './app-state/effects/account.effects';
 import { InfowidgetComponent } from './login/infowidget/infowidget.component';
+// import { CategoryEffects } from './app-state/effects';
 @NgModule({
   declarations: [
     AppComponent, InfowidgetComponent
@@ -34,7 +35,7 @@ import { InfowidgetComponent } from './login/infowidget/infowidget.component';
     StoreModule.forRoot(reducers, {
       metaReducers
     }),
-    EffectsModule.forRoot([TransactionEffects, AccountEffects])
+    EffectsModule.forRoot([TransactionEffects, AccountEffects, CategoryEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]
