@@ -11,6 +11,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import * as transactionActions from '../../app-state/actions';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { Category } from '../../app-state/entity/category.entity';
 
 @Component({
   selector: 'app-economics-list',
@@ -22,7 +23,7 @@ export class EconomicsListComponent implements OnInit {
   modalRef!: BsModalRef;
   modalRefdel!: BsModalRef;
   transaction: Transaction[] = [];
-
+  category: Category[] = [];
   currentTransactionId: string | undefined;
 
   constructor(private router: Router,
@@ -32,11 +33,19 @@ export class EconomicsListComponent implements OnInit {
     private toastr: ToastrService) {
 
     this.getTransaction();
+    this.getCategories();
+
+    this.store.select(fromRoot.getCategory).pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(data => {
+      this.category = data.category!
+    })
 
     this.store.select(fromRoot.getTransactions).pipe(
       takeUntil(this.destroy$)
     ).subscribe(data => {
       this.transaction = data.transaction!
+
 
       if (data.isLoadingSuccess) { }
         // this.toastr.success('Hello world!', 'Toastr fun!');
@@ -68,6 +77,9 @@ export class EconomicsListComponent implements OnInit {
     this.store.dispatch(transactionActions.getTransactionsAction());
   }
 
+  getCategories() {
+    this.store.dispatch(transactionActions.getCategoryAction());
+  }
 
   editTran(transaction: any) {
     console.log('editing this transaction:::', transaction);
