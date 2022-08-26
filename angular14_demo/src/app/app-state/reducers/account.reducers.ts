@@ -38,6 +38,11 @@ const accountReducer = createReducer(
   )),
   on(accountAction.logoutAction, (state) => ({ ...state, isLoggedIn: false, account: undefined })),
 
+  on(accountAction.signupAction, (state) => ({ ...state, isLoading: true })),
+  on(accountAction.signupActionSuccess, (state, result) => (
+    { account: result.response, isLoggedIn: true, isLoading: false, isLoadingSuccess: true }
+  )),
+
 )
 
 export function reducer(state: State | undefined, action: Action): any {

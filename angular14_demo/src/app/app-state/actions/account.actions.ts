@@ -7,6 +7,10 @@ export const LOGIN_FAILURE = '[LOGIN] LOGIN Failure';
 
 export const LOGOUT = '[LOGIN] LOGOUT';
 
+export const SIGNUP = '[LOGIN] SIGNUP';
+export const SIGNUP_SUCCESS = '[LOGIN] SIGNUP SUCCESS';
+export const SIGNUP_FAILURE = '[LOGIN] SIGNUP FAILURE';
+
 export const loginAction = createAction(
   LOGIN,
   props<{ formProp: any }>()
@@ -24,4 +28,19 @@ export const loginActionFailure = createAction(
 
 export const logoutAction = createAction(
   LOGOUT
+);
+
+export const signupAction = createAction(
+  SIGNUP,
+  props<{ formProp: any }>()
+);
+
+export const signupActionSuccess = createAction(
+  LOGIN_SUCCESS,
+  props<any>()
+);
+
+export const signupActionFailure = createAction(
+  LOGIN_FAILURE,
+  props<{ any: any }>()
 );

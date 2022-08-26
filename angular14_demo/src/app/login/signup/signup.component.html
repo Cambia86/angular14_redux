@@ -1,0 +1,30 @@
+<form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="form-group col-md-6">
+      <label for="firstName">firstName</label>
+      <input type="text" class="form-control" formControlName="firstName" id="firstName" placeholder="firstName">
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-md-6">
+      <label for="lastName">lastName</label>
+      <input type="text" class="form-control" formControlName="lastName" id="lastName" placeholder="lastName">
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-md-6">
+      <label for="userName">userName</label>
+      <input type="text" class="form-control" formControlName="userName" id="userName" placeholder="Assignee">
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-md-6">
+      <label for="password">password</label>
+      <input type="password" class="form-control" formControlName="password" id="password" placeholder="password">
+    </div>
+  </div>
+
+  <div class="btncenter">
+    <button type="submit" [disabled]="!editForm.valid" class="btn btn-danger">Confirm</button>
+  </div>
+</form>

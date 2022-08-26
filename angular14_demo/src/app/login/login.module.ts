@@ -5,11 +5,13 @@ import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InfowidgetComponent } from './infowidget/infowidget.component';
+import { SignupComponent } from './signup/signup.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
+    SignupComponent,
 
   ],
   imports: [

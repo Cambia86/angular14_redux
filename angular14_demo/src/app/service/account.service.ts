@@ -14,7 +14,11 @@ export class AccountService {
 
 
   login(formProp: any) {
-    return this.http.post(this.rootURL + '/login', { ...formProp });
+    return this.http.post(this.rootURL + '/account/login', { ...formProp });
+  }
+
+  signup(formProp: any) {
+    return this.http.post(this.rootURL + '/account/signup', { ...formProp });
   }
 
 }

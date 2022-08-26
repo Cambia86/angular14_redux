@@ -41,5 +41,8 @@ export {
   loginAction,
   loginActionSuccess,
   loginActionFailure,
-  logoutAction
+  logoutAction,
+  signupAction,
+  signupActionSuccess,
+  signupActionFailure
 } from './account.actions';

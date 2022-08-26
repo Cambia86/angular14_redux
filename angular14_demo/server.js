@@ -13,6 +13,7 @@ var mongodb = require("mongodb");
 // const statisticroute = require('./routes/statistic.route');
 const category = require('./routes/category')
 const transaction = require('./routes/transaction');
+const account = require('./routes/account');
 const config = require('./config')
 // var ObjectID = mongodb.ObjectID;
 var cors = require('cors')
@@ -28,7 +29,7 @@ function main() {
   app.use(bodyParser.json());
   app.use(cors())
   // link to angular build directory
-  var distDir = __dirname + "/dist/goalbetv2";
+  var distDir = __dirname + "/dist/angular14_demo";
   app.use(express.static(distDir));
 
   app.use(function (req, res, next) {
@@ -63,116 +64,18 @@ function main() {
     });
 
   app.get("/test", function (req, res) {
-
     res.status(200).json({ "test": "ok" });
-
-  });
-
-
-  // app.use('/competition', competition);
-  app.post('/api/login', (req, res) => {
-    // Insert Login Code Here
-    let username = req.body.username;
-    let password = req.body.password;
-    let mockedUsername = 'admin';
-    let mockedPassword = 'password';
-
-    if (username && password) {
-      if (username === mockedUsername && password === mockedPassword) {
-        let token = jwt.sign({ username: username },
-          config.secret,
-          {
-            expiresIn: '24h' // expires in 24 hours
-          }
-        );
-        // return the JWT token for the future API calls
-        res.json({
-          success: true,
-          message: 'Authentication successful!',
-          token: token,
-          id: 1,
-          username: "cambia86",
-          password: "****",
-          firstName: "Alessandro",
-          lastName: "Cambiaghi"
-        });
-      } else {
-        res.send(403).json({
-          success: false,
-          message: 'Incorrect username or password'
-        });
-      }
-    } else {
-      res.send(400).json({
-        success: false,
-        message: 'Authentication failed! Please check the request'
-      });
-    }
   });
 
   // app.use('/api/transaction', middleware.checkToken, standing_v2)
   app.use('/api/transaction', transaction)
   app.use('/api/category', category)
+  app.use('/api/account', account)
 
-  // app.use('/api/match',middleware.checkToken, match);
-  // app.use('/api/standing', standing);
-  // app.use('/api/prevision',middleware.checkToken,  prevision);
-  // app.use('/api/admin', middleware.checkToken, adminroute)
-  // app.use('/api/statistic',middleware.checkToken,  statisticroute)
-  // app.use('/api/v2/standing', middleware.checkToken, standing_v2)
   var server = app.listen(process.env.PORT || 8084, function () {
     var port = server.address().port;
     console.log("App now running on port", port);
   });
-}
-
-
-class HandlerGenerator {
-  login(req, res) {
-    let username = req.body.username;
-    let password = req.body.password;
-    // For the given username fetch user from DB
-    let mockedUsername = 'admin';
-    let mockedPassword = 'password';
-
-    if (username && password) {
-      if (username === mockedUsername && password === mockedPassword) {
-        let token = jwt.sign({ username: username },
-          config.secret,
-          {
-            expiresIn: '24h' // expires in 24 hours
-          }
-        );
-        // return the JWT token for the future API calls
-        res.json({
-          success: true,
-          message: 'Authentication successful!',
-          token: token,
-          id: 1,
-          username: "cambia86",
-          password: "****",
-          firstName: "Alessandro",
-          lastName: "Cambiaghi"
-        });
-      } else {
-        res.send(403).json({
-          success: false,
-          message: 'Incorrect username or password'
-        });
-      }
-    } else {
-      res.send(400).json({
-        success: false,
-        message: 'Authentication failed! Please check the request'
-      });
-    }
-  }
-  index(req, res) {
-    res.json({
-      success: true,
-      message: 'Index page'
-    });
-  }
 }
 
 main();

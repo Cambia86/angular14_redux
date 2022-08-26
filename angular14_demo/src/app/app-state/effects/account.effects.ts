@@ -31,4 +31,18 @@ export class AccountEffects {
     )
   );
 
+  signup$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(accountAction.signupAction),
+      exhaustMap(action =>
+        this.accountService.signup(action.formProp).pipe(
+          map(response => {
+            console.log("response:::", response)
+            return accountAction.signupActionSuccess({ response })
+          }),
+          catchError((error: any) => of(accountAction.signupActionFailure(error))))
+      )
+    )
+  );
+
 }
