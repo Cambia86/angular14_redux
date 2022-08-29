@@ -110,6 +110,7 @@ export class EconomicsListComponent implements OnInit {
   }
 
   onSubmit() {
+    //submit
     console.log(this.editForm.value);
     this.modalRef.hide();
     if (this.editForm.value.id == "") {
