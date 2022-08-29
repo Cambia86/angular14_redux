@@ -6,6 +6,7 @@ import { EconomicsListComponent } from './economics-list/economics-list.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
+import { WebcamModule } from 'ngx-webcam';
 // Available options
 interface NgxSpinnerConfig {
   type?: string;
@@ -19,8 +20,8 @@ interface NgxSpinnerConfig {
     EconomicsRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
-
+    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' }),
+    WebcamModule
   ]
 })
 export class EconomicsModule { }

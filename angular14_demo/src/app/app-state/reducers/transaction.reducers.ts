@@ -39,7 +39,7 @@ const transactionReducer = createReducer(
   )),
   on(transactionAction.createTransactionSuccess, (state, result) => {
     const transaction = undefined !== state.transactions ? _.cloneDeep(state.transactions) : [];
-    const currentTransaction = undefined !== state.currentTransaction ? _.cloneDeep(state.currentTransaction) : new Transaction("", "", 0, "", "", "");
+    const currentTransaction = undefined !== state.currentTransaction ? _.cloneDeep(state.currentTransaction) : new Transaction("", "", 0, "", "", "", "");
     currentTransaction.id = result.transactionId;
     transaction.push(currentTransaction);
     return {
@@ -69,7 +69,7 @@ const transactionReducer = createReducer(
   on(transactionAction.editTransaction, (state, transaction) => ({ ...state, isLoading: true, currentTransaction: transaction.transaction })),
   on(transactionAction.editTransactionSuccess, (state, result) => {
     let transaction = undefined !== state.transactions ? _.cloneDeep(state.transactions) : [];
-    const currentTransaction = undefined !== state.currentTransaction ? _.cloneDeep(state.currentTransaction) : new Transaction("", "", 0, "", "", "");
+    const currentTransaction = undefined !== state.currentTransaction ? _.cloneDeep(state.currentTransaction) : new Transaction("", "", 0, "", "", "", "");
     transaction = transaction.map(tsk => {
       if (tsk.id === currentTransaction!.id) {
         tsk = currentTransaction;

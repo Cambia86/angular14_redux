@@ -2,6 +2,8 @@
 <div class="col-md-3">
   <button type="button" (click)="openModal(template, null)" class="btn btn-warning right">Add</button>
 </div>
+<!--
+-->
 
 <div class="row" style="margin:5px" *ngFor="let tran of transaction; let i = index">
 
@@ -11,10 +13,12 @@
   <div class="col-2">{{tran.type}}
   </div>
 
-  <div class="col-2">
+  <div class="col-2"> <img src="{{ tran.captureImage }}" height="50px"></div>
+
+  <div class="col-1">
     <button type="button" (click)="openModal(template, tran)" class="btn btn-warning right">Edit</button>
   </div>
-  <div class="col-2">
+  <div class="col-1">
     <button type="button" (click)="openModalDelete(templatedel, tran)" class="btn btn-warning right">delete</button>
   </div>
 </div>
@@ -79,6 +83,19 @@
           <label for="exampleInputtype">type</label>
           <input type="text" class="form-control" formControlName="type" id="exampleInputvalue" placeholder="type">
         </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+
+            <webcam [width]="90" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"></webcam>
+
+            <button type="button" class="btn btn-success" (click)="triggerSnapshot();">Take A Snapshot</button>
+          </div>
+          <div class="col-md-6">
+
+            <div id="results">Your captured image will appear here...</div>
+            <img src="{{ captureImage }}" width="90% vw">
+          </div>
       </div>
       <!-- <div class="row">
         <div class="form-group col-md-6">

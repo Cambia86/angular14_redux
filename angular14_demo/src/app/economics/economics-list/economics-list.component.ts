@@ -12,6 +12,9 @@ import * as transactionActions from '../../app-state/actions';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Category } from '../../app-state/entity/category.entity';
+import { Observable } from 'rxjs';
+
+import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 
 @Component({
   selector: 'app-economics-list',
@@ -25,6 +28,14 @@ export class EconomicsListComponent implements OnInit {
   transaction: Transaction[] = [];
   category: Category[] = [];
   currentTransactionId: string | undefined;
+
+
+  // Subject<boolean> = new Subject<boolean>();
+  private trigger: Subject<void> = new Subject<void>();
+  public webcamImage!: WebcamImage;
+  private nextWebcam: Subject<void> = new Subject<void>();
+  captureImage = '';
+  //
 
   constructor(private router: Router,
     private readonly store: Store,
@@ -48,7 +59,7 @@ export class EconomicsListComponent implements OnInit {
 
 
       if (data.isLoadingSuccess) { }
-        // this.toastr.success('Hello world!', 'Toastr fun!');
+      // this.toastr.success('Hello world!', 'Toastr fun!');
 
       if (data.isLoading) {
         this.spinner.show();
@@ -67,7 +78,7 @@ export class EconomicsListComponent implements OnInit {
     description: new FormControl('', Validators.required),
     value: new FormControl('', Validators.required),
     category: new FormControl('', Validators.required),
-    type: new FormControl('', Validators.required)
+    type: new FormControl('', Validators.required),
   });
 
   destroy$: Subject<boolean> = new Subject<boolean>();
@@ -101,10 +112,11 @@ export class EconomicsListComponent implements OnInit {
   onSubmit() {
     console.log(this.editForm.value);
     this.modalRef.hide();
-    if (this.editForm.value.id == "")
-      this.addTran(this.editForm.value);
+    if (this.editForm.value.id == "") {
+      this.addTran({ ...this.editForm.value, captureImage: this.captureImage });
+    }
     else
-      this.editTran(this.editForm.value);
+      this.editTran({ ...this.editForm.value, captureImage: this.captureImage });
   }
 
   openModal(template: TemplateRef<any>, task: any) {
@@ -119,6 +131,26 @@ export class EconomicsListComponent implements OnInit {
     this.currentTransactionId = transaction.id!;
     this.modalRefdel = this.modalService.show(templatedel);
   }
+
+  // capture image
+  public triggerSnapshot(): void {
+    this.trigger.next();
+  }
+
+  public handleImage(webcamImage: WebcamImage): void {
+    this.webcamImage = webcamImage;
+    this.captureImage = webcamImage!.imageAsDataUrl;
+    // console.info('received webcam image', this.captureImage);
+  }
+
+  public get triggerObservable(): Observable<void> {
+    return this.trigger.asObservable();
+  }
+
+  public get nextWebcamObservable(): Observable<void> {
+    return this.nextWebcam.asObservable();
+  }
+  // capture image
 
   ngOnInit(): void {
     var lintwait = "";
