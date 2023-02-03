@@ -7,6 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { WebcamModule } from 'ngx-webcam';
+import {NgxImageCompressService} from "ngx-image-compress";
+
 // Available options
 interface NgxSpinnerConfig {
   type?: string;

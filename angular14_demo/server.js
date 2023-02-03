@@ -72,7 +72,7 @@ function main() {
   app.use('/api/category', category)
   app.use('/api/account', account)
 
-  var server = app.listen(process.env.PORT || 8084, function () {
+  var server = app.listen(process.env.PORT || 8989, function () {
     var port = server.address().port;
     console.log("App now running on port", port);
   });

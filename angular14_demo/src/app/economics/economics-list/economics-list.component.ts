@@ -16,6 +16,7 @@ import { Observable } from 'rxjs';
 
 import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 
+
 @Component({
   selector: 'app-economics-list',
   templateUrl: './economics-list.component.html',
@@ -41,7 +42,8 @@ export class EconomicsListComponent implements OnInit {
     private readonly store: Store,
     private modalService: BsModalService,
     private spinner: NgxSpinnerService,
-    private toastr: ToastrService) {
+    private toastr: ToastrService
+    ) {
 
     this.getTransaction();
     this.getCategories();
@@ -141,8 +143,11 @@ export class EconomicsListComponent implements OnInit {
   public handleImage(webcamImage: WebcamImage): void {
     this.webcamImage = webcamImage;
     this.captureImage = webcamImage!.imageAsDataUrl;
+
+   
     // console.info('received webcam image', this.captureImage);
   }
+
 
   public get triggerObservable(): Observable<void> {
     return this.trigger.asObservable();

@@ -10,7 +10,7 @@ export class TransactionService {
 
   constructor(private http: HttpClient) { }
 
-  rootURL = 'http://localhost:8084/api';
+  rootURL = 'http://127.0.0.1:8989/api';
 
   gettransactions() {
     return this.http.get(this.rootURL + '/transaction/getTransaction');

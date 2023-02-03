@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { UtilityRoutingModule } from './utility-routing.module';
-import { CategoryComponent } from './category/category.component';
+// import { CategoryComponent } from './category/category.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
   declarations: [
-    CategoryComponent
+    // CategoryComponent
   ],
   imports: [
     CommonModule,

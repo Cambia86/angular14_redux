@@ -8,7 +8,7 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  rootURL = 'http://localhost:8084/api';
+  rootURL = 'http://127.0.0.1:8989/api';
 
   getcategorys() {
     return this.http.get(this.rootURL + '/category/getcategory');
